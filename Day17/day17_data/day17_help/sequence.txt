@@ -1,0 +1,89 @@
+1. get vs load  : Hibernate session API
+find vs getReference :  JPA
+(findById vs getReferenceById) : JpaRepo
+day10.1\src\main\java\com\sunbeaminfo\tester\DisplayProductDetails.java
+DB : ems2
+Table : products
+Use case : assign emp to existing dept (in uni scenario : Emp ---> Dept)
+i/p : DTO : emp dtls + dept id
+
+1.1 IN case of validations : 
+start date before end date : DTO/ Entity
+Service : DTO 
+LocaDate : isBefore 
+Better : custom validator --> custom annotation.
+
+
+
+1.5 Pagination demo
+day16.1 project
+
+2. Spring Security
+
+Continue with  Spring security
+Understand spring security architecture
+(refer to spring security help)
+2.1 Servlet Filters overview (filter help)
+2.2 servletfilter-1 , servletfilter-2
+2.3 spring security architecture diagram
+2.4 detailed-flow diagram 
+(readme : Spring security flow)
+
+Refer : "day17-data\day17_help\spring security\diagrams\detailed flow.png"
+
+Later , once you get a feel of spring security , refer :
+"\day17-data\day17_help\spring security\diagrams\Ultimate Details of Spring Security Architecture.png"
+
+2.4 Continue to in mem based authentication
+2.5 Replace it by DB based authentication
+
+Copy User entity from ready code
+
+(refer : Regarding Spring Security)
+
+2.6 Continue to JWT
+
+
+3. JAR creation
+
+4. Spring Boot internals
+Refer : "day17-boot\day17_help\Spring Boot Internals.txt"
+
+4.Spring Boot integration testing 
+4.1 If you want to test service + dao layer together 
+Use : @SpringBootTest , in the Test class (class level annotation)
+SC will activate all of the spring beans available under the Spring boot app.
+
+4.2 If you want to test , Controller or RestController layer only , by simulating service n all the below layers
+How ?
+Spring Boot provides the @WebMvcTest annotation to fire up an application context that contains only the beans needed for testing a web controller:
+Then additionally you can use @MockBean annotation ,to mock service layer.
+
+eg : @MockBean
+  private UserService userService;
+
+Refer to eclipse project : spring-boot-testing
+Test class :src\test\java\com\app\TestProductService.java 
+For Mocking service layer : src\test\java\com\app\ProductControllerTest.java
+
+5. custom quries
+ Spring Data JPA : custom query methods 
+One  can add JPQL directly in DAO i/f
+How  ? 
+eg : 
+@Query("select u from User u where u.emailAddress = :em")
+  Optional<User> fetchUserByEmailAddress(@Param("em")String emailAddress);
+
+//Solve :
+How to get complete names of users under the specific role ?
+eg : @Query("select new com.app.entities.User(firstName,lastName) from User u where u.role=?1")
+List<User> anyMethodName(UserRole userRole);
+ 
+
+@Modifying
+  @Query("delete from User u where u.role = ?1")
+  void deleteInBulkByRoleId(UserRole role);
+
+@Modifying
+@Query("update User u set u.firstname = ?1 where u.lastname = ?2")
+int anyName(String firstname, String lastname);

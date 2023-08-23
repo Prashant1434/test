@@ -1,0 +1,39 @@
+Regarding Rest Template 
+org.springframework.web.client.RestTemplate 
+
+It is a class provided by the Spring Framework that simplifies making HTTP requests to interact with RESTful web services.
+
+It is a part of the Spring Web module and provides a convenient way to consume and interact with RESTful APIs.
+
+With RestTemplate, you can perform various HTTP methods such as GET, POST, PUT, DELETE,PATCH, and handle the responses from the server. It hides the complexities of working with low-level HTTP client libraries and provides a higher-level, more user-friendly interface.
+
+Key features
+
+HTTP Methods: RestTemplate supports various HTTP methods like GET, POST, PUT, DELETE, HEAD, OPTIONS, and more. You can use these methods to interact with different endpoints of a RESTful API.
+
+Request and Response Handling: It allows you to send HTTP requests and receive responses from the server. The responses can be handled in various formats, such as JSON, XML etc.
+
+Request and Response Conversion: RestTemplate can automatically convert request and response objects to and from JSON, XML using message converters.
+
+Error Handling: It provides built-in error handling for common HTTP status codes and exceptions, making it easy to handle errors and exceptions that occur during HTTP interactions.
+
+Authentication: RestTemplate supports various authentication mechanisms, such as basic authentication, OAuth, ..
+
+
+Integration with Spring's Ecosystem: RestTemplate integrates well with other components in the Spring ecosystem, such as Spring Boot, Spring Security, and more.
+
+eg : 
+In any service layer , to call some other REST API 
+
+
+        RestTemplate restTemplate = new RestTemplate();
+        String apiUrl = "http://api.shop.com/product/{pid}";
+
+        // Make a GET request and retrieve the response as a Product
+        Product p = restTemplate.getForObject(apiUrl, Product.class,10);//product id=10
+
+        System.out.println("API Response: " + response);
+    }
+}
+From Spring 5, onwards ,  Spring recommends using the WebClient class, which provides a more modern and flexible way to interact with RESTful services.
+
